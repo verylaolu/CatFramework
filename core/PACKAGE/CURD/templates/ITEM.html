@@ -1,0 +1,91 @@
+<div class="row"  style="max-width: 1210px;width: 1210px; margin: auto; padding-top: 10px">
+    <div style="max-width: 250px;float: left">
+        [{include file="MENU.html"}]
+    </div>
+    <div style="max-width: 940px; float:right;" >
+        <div class=" panel panel-info"  style="width: 100%">
+            <div class="panel-heading" style=" padding:5px; height:45px; ">
+
+                <span class="glyphicon glyphicon-cog" style="font-weight:700;font-size: 17px;padding-left: 20px;padding-top: 5px"></span>
+                <span style="font-weight:700;padding-left: 5px;font-size: 20px"> 添加编辑</span>
+
+            </div>
+            <div class="panel-body">
+                <div style="max-width: 940px;">
+                    <form id="CURD_form" action="" method="post">
+
+                        <div style="width:940px;margin: auto" class="row">
+                            [{foreach from=$widget key=key item=item}]
+                            [{if $item.display=='show'}]
+                            <div style="padding-top: 20px;">
+                                <label class="col-sm-2 ">[{$item.title}]</label>
+                                [{if $item.type=='text' || $item.type=='url'}]
+                                <input type="text" class="form-control" style="[{$item.style}]" placeholder="请填写[{$item.title}]" id='[{$key}]' name='[{$key}]' value="[{$item.value}]">
+                                [{elseif $item.type=='password'}]
+                                <input type="password" class="form-control" style="[{$item.style}]" placeholder="请填写[{$item.title}]" id='[{$key}]' name='[{$key}]' value="[{$item.value}]">
+                                [{elseif $item.type=='email'}]
+                                <input type="email" class="form-control" style="[{$item.style}]" placeholder="请填写[{$item.title}]" id='[{$key}]' name='[{$key}]' value="[{$item.value}]">
+                                [{elseif $item.type=='textarea'}]
+                                <textarea  class="form-control" style="[{$item.style}]" id='[{$key}]' name='[{$key}]'>[{$item.value}]</textarea>
+                                [{elseif $item.type=='select'}]
+                                <select  class=" form-control selectpicker" style="[{$item.style}]" data-style="btn-info" id='[{$key}]' name='[{$key}]'>
+                                    [{foreach from=$item.list key=ke item=select}]
+                                    [{foreach from=$select key=value item=name}]
+                                    <option value="[{$ke}]" [{if $ke==$item.value}]selected[{elseif $ke==''}]selected[{/if}]>[{$name}]</option>
+                                    [{/foreach}]
+                                    [{/foreach}]
+                                </select>
+                                [{elseif $item.type=='radio'}]
+                                [{foreach from=$item.list key=ke item=radio}]
+                                [{foreach from=$radio key=k item=name}]
+                                <label style="[{$item.style}]"><input type="radio" [{if $ke==$item.value}]checked[{/if}]  id='[{$key}]_[{$ke}]' name='[{$key}]' value="[{$ke}]" > [{$name}] </label>
+                                [{/foreach}]
+                                [{/foreach}]
+                                [{/if}]
+                            </div>
+                            [{elseif $item.display=='hide'}]
+                            <input id='[{$key}]' name='[{$key}]' type="hidden" value="[{$item.value}]">
+
+                            [{/if}]
+                            [{/foreach}]
+
+                        </div>
+
+
+                        <div style='padding-top: 30px;padding-left: 150px'>
+
+                            [{if $permissions.u>0 && $info.$primary_key>0}]
+                            <button id='CURD_submit' type="button" class="btn btn-danger" style='width:100px' >保存</button>
+                            [{/if}]
+                            [{if $permissions.c>0 && $info.$primary_key<=0}]
+                            <button id='CURD_submit' type="button" class="btn btn-danger" style='width:100px' >保存</button>
+                            [{/if}]
+                            [{if $permissions.c>0}]
+                            <a href="[{$url}]?curl_action=i"><button type="button" class="btn btn-warning" >继续添加</button></a>
+                            [{/if}]
+                            <!--<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>-->
+                            [{$custom_button|replace:"[_PK_]":$primary_key|replace:"[_PK_VALUE_]":$primary_key_value}]
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<script type='text/javascript'>
+    jQuery(document).ready(function () {
+        window.onbeforeunload = function(event) { return confirm("如果未保存，离开会丢失你的信息，确定离开此页面吗？"); }
+        jQuery("#CURD_submit").click(function () {
+            if ($('#[{$primary_key}]').val() > 0) {
+                CURD_submitForm('CURD_form', '[{$url}]?curl_action=u');
+            } else {
+                CURD_submitForm('CURD_form', '[{$url}]?curl_action=c');
+            }
+        });
+
+
+    });
+    [{include file = "CURD.js"}]
+</script>

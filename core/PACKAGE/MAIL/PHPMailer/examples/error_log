@@ -1,0 +1,1 @@
+[13-Sep-2009 08:35:35] PHP Fatal error:  Call to undefined method PHPMailer::MsgText() in /home/dealmoon/public_html/lib/PHPMailer/examples/test_sendmail_basic.php on line 35

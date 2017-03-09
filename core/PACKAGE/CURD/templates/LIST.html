@@ -1,0 +1,51 @@
+<div class="row"  style="max-width: 1210px;width: 1210px; margin: auto; padding-top: 10px">
+    <div style="max-width: 250px;float: left">
+        [{include file="MENU.html"}]
+    </div>
+    <div style="max-width: 940px; float:right;" >
+        <div class=" panel panel-info"  style="width: 100%">
+            <div class="panel-heading" style=" padding:5px; height:45px; ">
+
+                <span class="glyphicon glyphicon-list" style="font-weight:700;font-size: 17px;padding-left: 20px;padding-top: 5px"></span>
+                <span style="font-weight:700;padding-left: 5px;font-size: 20px"> 全部列表</span>
+
+
+            </div>
+            <div class="panel-body" style="width:940px;margin: auto;padding: 5px;overflow: auto;">
+                <table class="table table-hover" style="width: 100px;empty-cells:show; ">
+                    <thead>
+                        <tr style="font-weight: 700;white-space: nowrap;">
+                            [{foreach from=$widget key=key item=item}]
+                            <td>[{$item.title}]</td>
+                            [{/foreach}]
+                            <td>操作</td>
+                        </tr>
+                    </thead>
+                    <tbody  style="white-space: nowrap;">
+                        [{foreach from=$List key=k  item=node}]
+                        <tr id="CURL_list_[{$node.id}]">
+                            [{foreach from=$widget key=key item=item}]
+                            <td>[{$node.$key}]</td>
+                            [{/foreach}]
+
+                            <td style="width: 90px">
+                                [{$custom_button|replace:"[_PK_]":$primary_key|replace:"[_PK_VALUE_]":$node.$primary_key}]
+                                [{if $permissions.i>0}]
+                                <a href="[{$url}]?curl_action=i&[{$primary_key}]=[{$node.$primary_key}]"><button title="詳情編輯" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-pencil"></span></button></a>
+                                [{/if}]
+                                [{if $permissions.d>0}]
+                                <button title="刪除" class="btn btn-danger btn-sm" onclick="CURD_delAjax('[{$url}]?curl_action=d', '[{$primary_key}]', '[{$node.$primary_key}]')"><span class="glyphicon glyphicon-trash"></span></button>
+                                [{/if}]
+                            </td>
+                        </tr>
+                        [{/foreach}]
+                    </tbody>
+                </table>
+                [{$page}]
+            </div>
+        </div>
+    </div>
+</div>
+<script type='text/javascript'>
+    [{include file = "CURD.js"}]
+</script>

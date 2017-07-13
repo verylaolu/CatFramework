@@ -21,7 +21,7 @@ class FW {
     function init() {
 
         $obj = Route::getRoute();
-        $Model_name = $obj->model . 'Controller';
+        $Model_name = $obj->module . 'Controller';
         $Action_name = $obj->action;
         if (!file_exists(LIB_PATH . '/controllers/' . $Model_name . '.php')) {
             header_go(self::$conf['404']);

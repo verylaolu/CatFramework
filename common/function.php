@@ -66,6 +66,10 @@ function dump($var, $echo = true, $label = null, $strict = true) {
     } else
         return $output;
 }
+function pr($var){
+    echo '<pre>';
+    print_r($var);
+}
 
 /**
  * 时间计算，精确毫秒
@@ -655,3 +659,23 @@ function EnglishChar($str){
     preg_match_all($parrten,$str,$arr);
     return  strtolower(implode('', $arr[0]));
 }
+/**
+ * 判断是否POST请求
+ *
+ */
+function is_post() {
+    return 'post' == strtolower($_SERVER['REQUEST_METHOD']);
+}
+
+/**
+ * 判断请求是否是AJAX请求,只支持jquery
+ * @param boolean $exit 如果不是，是否自动停止程序执行
+ * @return boolean
+ */
+function is_ajax($exit = false) {
+    $result = isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest' ? true : false;
+    if ($result === false && $exit)
+        exit('Access Deny');
+    return $result;
+}
+

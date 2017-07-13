@@ -1,4 +1,13 @@
 <?php
+/**
+ * $ORM = $this->GET_PACKAGE('ORM');
+ * $ORM->MAKE_ORM_MODEL_CODE();
+ * $ORM->MAKE_ORM_ACTION_SERVER_CODE();
+ * $ORM->MAKE_ORM_CONTROLLER_SERVER_CODE('api');
+ * $ORM->MAKE_ORM_ACTION_CLIENT_CODE();
+ * $ORM->MAKE_ORM_CONTROLLER_CLIENT_CODE('open','smarty_path');
+ * $ORM->MAKE_ORM_OBJ_CODE();
+ */
 class _ORM {
 
     public $ORM;

@@ -19,12 +19,12 @@ class Route {
         $DEFAULT_ACTION=isset($APP_CONF['DEFAULT_ACTION'])?$APP_CONF['DEFAULT_ACTION']:'index';
         
         $app = !empty($_REQUEST['app'])?$_REQUEST['app']:$DEFAULT_APP;
-        $module = !empty($_REQUEST['model'])?$_REQUEST['model']:$DEFAULT_MODULE;
+        $module = !empty($_REQUEST['module'])?$_REQUEST['module']:$DEFAULT_MODULE;
         $action = !empty($_REQUEST['action'])?$_REQUEST['action']:$DEFAULT_ACTION;
-        $obj ='';
+    
         $obj = (object)$obj;
         $obj->app = trim($app, '/');
-        $obj->model = ucfirst(trim($module, '/'));
+        $obj->module = ucfirst(trim($module, '/'));
         $obj->action = APP_WEBSERVER_PREFIX.trim($action, '/');
         $obj->action_url=trim($action, '/');
         return $obj;

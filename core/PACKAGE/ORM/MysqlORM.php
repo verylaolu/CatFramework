@@ -227,6 +227,10 @@ class MysqlORM {
         $str .= '        return $this->MODEL->_update($condition, $info);' . "\r\n";
         $str .= '    }' . "\r\n";
 
+        $str .= '    public function set_plus($condition, $info) {' . "\r\n";
+        $str .= '       return $this->MODEL->_update_plus($condition, $info);' . "\r\n";
+        $str .= '    }' . "\r\n";
+
         $str .= '    public function del($condition) {' . "\r\n";
         $str .= '        return $this->MODEL->_delete($condition);' . "\r\n";
         $str .= '    }' . "\r\n";
@@ -345,6 +349,12 @@ class MysqlORM {
         $str .= '        return $res;' . "\r\n";
         $str .= '    }' . "\r\n";
 
+
+        $str .= '    public function set_plus($condition, $info) {' . "\r\n";
+        $str .= '       return $this->MODEL->_update_plus($condition, $info);' . "\r\n";
+        $str .= '    }' . "\r\n";
+
+
         $str .= '    public function del($data="") {' . "\r\n";
         $str .= '        $res = $this->post(API_URL."/".$this->API_MODEL."/del",$data);' . "\r\n";
         $str .= '        return $res;' . "\r\n";
@@ -409,7 +419,7 @@ class MysqlORM {
         $str .= '    public $ENUM;' . "\r\n";
         $str .= '    public $ACTION_CLASS;' . "\r\n";
         $str .= '    public $OBJ_NAME;' . "\r\n";
-        
+
         $str .= '    public $LANG;' . "\r\n";
         $str .= '    public $_APP;' . "\r\n";
         $str .= '    public $_MODULE;' . "\r\n";
@@ -421,7 +431,7 @@ class MysqlORM {
         $str .= '        global $enum;' . "\r\n";
         $str .= '        $this->ENUM = $enum;' . "\r\n";
         $str .= '        parent::__construct($REG_PACKAGE);' . "\r\n";
-        
+
         $str .= '        $obj            = Route::getRoute();' . "\r\n";
         $str .= '        $this->_APP     = strtolower($obj->app);' . "\r\n";
         $str .= '        $this->_MODULE  = strtolower($obj->module);' . "\r\n";
@@ -429,7 +439,7 @@ class MysqlORM {
         $str .= '        $this->_PARM    = $_REQUEST["parm"];' . "\r\n";
         $str .= '        $this->selectlanguage($this->_MODULE);' . "\r\n";
         $str .= '    }' . "\r\n";
-        
+
         $str .= '    function selectlanguage($lang) {' . "\r\n";
         $str .= '        if ($lang == "en") {' . "\r\n";
         $str .= '            $this->LANG = include_once LANGUAGE_PATH . "en-us.php";' . "\r\n";

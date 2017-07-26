@@ -249,6 +249,37 @@ class Mysql {
         }
         $sql_wher = $where ? 'WHERE ' . ($arr ? $this->setVals($where, $arr) : $where) : '';
         $sql = "UPDATE `$table` $sql_sets $sql_wher";
+        return $this->exec($sql);
+    }
+    /**
+     * 更新数据
+     * @param string $table 待更新的表名
+     * @param array  $vals  待更新的数据
+     * @param string $where 待更新的条件
+     * @param array  $arr   更新条件参数
+     * @return boolean
+     */
+    public function update_plus($table, $vals, $where, $arr = NULL) {
+        
+        $sql_sets = '';
+
+        foreach ($vals as $f => $v) {
+            $sql_sets .= '`' . $f . '`=' .$f.'+'. $this->quote($v) . ',';
+        }
+        if ($sql_sets) {
+            $sql_sets = 'SET ' . substr($sql_sets, 0, -1);
+        } else {
+            $sql_sets = '';
+        }
+        if(is_array($where)){
+            $new_where = '';
+            foreach ($where as $key => $value){
+               $new_where .= " $key = $value AND"; 
+            }
+            $where = trim($new_where,'AND');
+        }
+        $sql_wher = $where ? 'WHERE ' . ($arr ? $this->setVals($where, $arr) : $where) : '';
+        $sql = "UPDATE `$table` $sql_sets $sql_wher";
 
         return $this->exec($sql);
     }
@@ -439,6 +470,8 @@ class Mysql {
             return '';
         }
     }
+
+   
 
 
 }

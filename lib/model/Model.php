@@ -80,6 +80,9 @@ abstract class Model extends FWLibBase{
     protected function update($table, $vals, $where, $arr = NULL) {
         return $this->DB->update($table, $vals, $where, $arr);
     }
+    protected function update_plus($table, $vals, $where, $arr = NULL) {
+        return $this->DB->update_plus($table, $vals, $where, $arr);
+    }
 
     protected function fetchOne($sql, $arr = NULL) {
         return $this->DB->fetchOne($sql, $arr);
@@ -160,6 +163,17 @@ abstract class Model extends FWLibBase{
         
         $condition = $this->format_condition($condition);
         return $this->update($this->table, $info, $condition);
+    }
+    /**
+     * 获取分类详细信息
+     * @param int $id  分类ID
+     * @param array $info  分类信息
+     * @return array 分类信息数组
+     */
+    public function _update_plus($condition,$info){
+        
+        $condition = $this->format_condition($condition);
+        return $this->update_plus($this->table, $info, $condition);
     }
     /**
      * 获取分类详细信息

@@ -280,7 +280,7 @@ class Mysql {
         }
         $sql_wher = $where ? 'WHERE ' . ($arr ? $this->setVals($where, $arr) : $where) : '';
         $sql = "UPDATE `$table` $sql_sets $sql_wher";
-echo $sql;
+
         return $this->exec($sql);
     }
 

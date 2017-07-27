@@ -17,7 +17,6 @@
 function require_cache($filename) {
     static $_importFiles = array();
     $filepath            = realpath($filename);
-
     // 如果找到不到文件则报异常，避免不知道发生了什么问题.
     if ($filepath) {
         $filename = $filepath;
@@ -115,6 +114,9 @@ function __autoload($classname) {
     } elseif (substr($classname, -5) == "Model") {
         require_cache(FLIB_PATH . '/model/Model.php');
         require_cache($app_path . '/model/' . $classname . '.php');
+    } elseif (substr($classname, -6) == "Plugin") {
+//        require_cache(FLIB_PATH . '/model/Model.php');
+        require_cache($app_path . '/plugin/' . $classname . '.php');
     } elseif (substr($classname, 0, 3) == 'PHP') {
         return; // PHPUnit 等需要走他自己的 autoload. Modify by HuangHong, 2014/6/26
     } else {

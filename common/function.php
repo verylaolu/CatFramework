@@ -17,6 +17,7 @@
 function require_cache($filename) {
     static $_importFiles = array();
     $filepath            = realpath($filename);
+
     // 如果找到不到文件则报异常，避免不知道发生了什么问题.
     if ($filepath) {
         $filename = $filepath;
